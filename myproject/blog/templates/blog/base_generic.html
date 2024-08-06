@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}My Blog{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}"> <!-- Include your CSS file if separate -->
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+            color: #333;
+        }
+        header {
+            background-color: #343a40;
+            color: #fff;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        h1 {
+            margin: 0;
+        }
+        .header-link {
+            color: #fff;
+            text-decoration: none; /* Remove underline */
+        }
+        nav {
+            position: relative;
+        }
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            align-items: center;
+        }
+        nav ul li {
+            margin-right: 1.5rem;
+            position: relative;
+        }
+        nav ul li a, nav ul li button {
+            color: #fff;
+            text-decoration: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            display: block;
+            padding: 1rem 2rem;
+        }
+        nav ul li button {
+            padding: 0;
+        }
+        nav ul li a:hover, nav ul li button:hover {
+            text-decoration: none; /* Ensure no underline on hover */
+        }
+        .navbar {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+        }
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+        .menu-toggle span {
+            width: 25px;
+            height: 3px;
+            background: #fff;
+            margin: 4px 0;
+        }
+        .logout-btn {
+            color: #fff;
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 0.25rem;
+            cursor: pointer;
+            font-size: 1rem;
+            margin-left: 1.5rem;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 2rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .container h2 {
+            margin-top: 0;
+        }
+        .link {
+            color: #007bff;
+            text-decoration: none;
+        }
+        .link:hover {
+            text-decoration: none; /* Ensure no underline on hover */
+        }
+
+        /* Responsive styles */
+        @media (max-width: 768px) {
+            .navbar ul {
+                flex-direction: column;
+                width: 250px;
+                height: 100%;
+                background-color: #343a40;
+                position: fixed;
+                top: 0;
+                left: -250px;
+                transition: left 0.3s ease;
+                z-index: 1;
+            }
+            .navbar ul.show {
+                left: 0;
+            }
+            .navbar ul li {
+                margin: 0;
+                padding: 1rem 0;
+                width: 100%;
+            }
+            .menu-toggle {
+                display: flex;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="{% url 'index' %}" class="header-link"><h1>Vicks Blog</h1></a>
+        <nav class="navbar">
+            <div class="menu-toggle" id="mobile-menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul>
+                <li><a href="{% url 'index' %}">Blogs</a></li>
+                <li><a href="{% url 'create_post' %}">Create Post</a></li>
+                <li><a href="{% url 'home' %}">Category</a></li>
+                {% if user.is_authenticated %}
+                    <li><a href="{% url 'profile' %}">@{{ user.username }}</a></li>
+                    <li>
+                        <form id="logout-form" method="post" action="{% url 'logout' %}">
+                            {% csrf_token %}
+                            <button type="submit" class="logout-btn">Logout</button>
+                        </form>
+                    </li>
+                {% else %}
+                    <li><a href="{% url 'login' %}">Login</a></li>
+                    <li><a href="{% url 'signup' %}">Register</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <div class="container content">
+            {% block content %}
+            {% endblock %}
+        </div>
+    </main>
+
+    <script>
+        document.getElementById('mobile-menu').addEventListener('click', function() {
+            const nav = document.querySelector('.navbar ul');
+            nav.classList.toggle('show');
+        });
+    </script>
+</body>
+</html>

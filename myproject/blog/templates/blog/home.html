@@ -1,0 +1,25 @@
+{% extends "blog/base_generic.html" %}
+
+{% block content %}
+<h2 class="posts-title">All Posts</h2>
+
+{% for post in posts %}
+<div class="post-card">
+    <div class="post-content">
+        <h3 class="post-title">
+            <a href="{% url 'post_detail' post.pk %}">{{ post.title }}</a>
+        </h3>
+        <p class="post-author">author: {{ post.author.username }}</p> <br>
+        <div class="post-actions">
+            {% if request.user == post.author %}
+            <a href="{% url 'update_post' post.pk %}" class="post-edit">Edit</a>
+            <a href="{% url 'delete_post' post.pk %}" class="post-delete" onclick="return confirm('Are you sure you want to delete this post?');">Delete</a>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<hr class="post-divider">
+<br>
+{% endfor %}
+{% endblock %}

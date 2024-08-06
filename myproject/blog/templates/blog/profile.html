@@ -1,0 +1,16 @@
+<!-- myproject/blog/templates/blog/profile.html -->
+{% extends 'blog/base_generic.html' %}
+
+{% block title %}Profile{% endblock %}
+
+{% block content %}
+<h2>Profile</h2>
+<p>Username: {{ user.username }}</p>
+<p>KYC Status: {{ user.profile.is_kyc_user }}</p>
+
+{% if user.email %}
+<p>Email: {{ user.email }}</p>
+{% else %}
+<p><i>Only KYC User can create post</i></p>
+{% endif %}
+{% endblock %}
