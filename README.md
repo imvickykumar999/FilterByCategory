@@ -1,6 +1,12 @@
-# `Blog` : `Filter By Category`
+# [`Blog`](https://vicksblogfilterbycategory.pythonanywhere.com/) : `Filter By Category`
+    
+    unzip /home/VicksBlogFilterByCategory/myproject/Blogs.zip
+    pip install django-jazzmin
+    pip install django-ckeditor
+    find /home/VicksBlogFilterByCategory -type d -exec chmod 755 {} +
+    python manage.py createsuperuser
 
-![image](https://github.com/user-attachments/assets/e61f0a94-2540-4a69-936c-43a328b19950)
+![image](https://github.com/user-attachments/assets/bb64f0ab-eb92-4942-9dba-83579f819b94)
 ![image](https://github.com/user-attachments/assets/ebed9b59-5d6b-47df-9082-0a9424ac85be)
 ![image](https://github.com/user-attachments/assets/ab2c69bf-bf78-4bf7-88ff-bd15f656b5ec)
 ![image](https://github.com/user-attachments/assets/7d0ed5d5-7e20-41d1-a781-df3728cc9038)
